@@ -1,4 +1,5 @@
 ![image](https://user-images.githubusercontent.com/37384769/208300551-97927778-5120-4a44-8463-56da4f0f5980.png)
+https://pub.dev/packages/v_chat_mention_controller
 - use this package to detect mentions in text filed
 - '@'
 - support all language
