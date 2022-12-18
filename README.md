@@ -1,39 +1,69 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
-
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages).
-
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages).
--->
-
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
-
-## Features
-
-TODO: List what your package can do. Maybe include images, gifs, or videos.
-
-## Getting started
-
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
-
-## Usage
-
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
+- use this package to detect mentions in text filed
+- '@'
+- support all language
+- support custom widgets
+- only you need to create the controller in your state
 
 ```dart
-const like = 'sample';
+
+final controller = VChatTextMentionController(
+  debounce: 500,
+
+  ///set custom style
+  mentionStyle: const TextStyle(
+    color: Colors.deepPurple,
+    fontWeight: FontWeight.w800,
+  ),
+);
 ```
 
-## Additional information
+- make sure to call dispose after exit from the screen!
+- Listen to on search detect
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+```dart
+  @override
+void initState() {
+  super.initState();
+  controller.onSearch = (str) async {
+    users.clear();
+    if (str != null) {
+      //  print("search by $str");
+      _isSearchCanView = true;
+      if (str.isEmpty) {
+        users.addAll(_fakeUsersDataServer);
+      }
+      //send request
+      for (var element in _fakeUsersDataServer) {
+        if (element.startsWith(str)) {
+          users.add(element);
+        }
+      }
+    } else {
+      //stop request
+      _isSearchCanView = false;
+    }
+    setState(() {});
+  };
+}
+
+```
+
+- once you want to add new mention just call
+
+``` 
+  controller.addMention(
+        MentionData(
+          id: "User id",
+          display: "USER NAME",
+        ),
+      );
+```
+
+- once you want to get the data as makeup text call
+
+```dart
+controller.markupText
+```
+
+- you need to use https://pub.dev/packages/flutter_parsed_text
+- to parse and view the mention text see the example in the package for how to use it !
