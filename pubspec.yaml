@@ -1,14 +1,14 @@
 name: v_chat_mention_controller
-description: A new Flutter package project.
-version: 1.0.0
+description: A Flutter text editing controller for styled mentions, debounced user search, mention insertion, and structured markup.
+version: 2.0.1
 homepage: https://github.com/hatemragab/v_chat_sdk
 issue_tracker: https://github.com/v-chat-sdk/v_chat_mention_controller/issues
 repository: https://github.com/v-chat-sdk/v_chat_mention_controller
 
 
 environment:
-  sdk: '>=2.12.0 <3.0.0'
-  flutter: ">=1.17.0"
+  sdk: ">=3.13.0 <4.0.0"
+  flutter: ">=3.47.0"
 
 dependencies:
   flutter:
@@ -17,7 +17,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^2.0.0
+  flutter_lints: ^6.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

@@ -41,9 +41,7 @@ class VChatTextMentionController extends TextEditingController {
   }
 
   ///call this function to add new mention for the user
-  void addMention(
-    MentionData value,
-  ) {
+  void addMention(MentionData value) {
     _annotationMapping[_pattern + value.display] = value;
     _setPattern();
     _emitOnSearchChange(null, sendNow: true);
@@ -64,11 +62,11 @@ class VChatTextMentionController extends TextEditingController {
 
   void _suggestionListener() {
     final cursorIndex = _controller.selection.baseOffset;
-    if (cursorIndex == -1) return;
+    if (cursorIndex < 0 || cursorIndex > _controller.text.length) return;
     //parse all text from start 0 split all text to words and save all words in list with its start and end position!
     final textBeforeCursor = _controller.text.substring(0, cursorIndex);
     //get last message
-    final lastWord = textBeforeCursor.split(" ").last;
+    final lastWord = textBeforeCursor.split(RegExp(r'\s')).last;
     final lastWordModel = WordModel(
       word: lastWord,
       wordEnd: cursorIndex,
@@ -100,7 +98,7 @@ class VChatTextMentionController extends TextEditingController {
             children.add(
               TextSpan(
                 text: match[0],
-                style: style!.merge(mentionStyle),
+                style: style?.merge(mentionStyle) ?? mentionStyle,
               ),
             );
           }
@@ -117,6 +115,8 @@ class VChatTextMentionController extends TextEditingController {
 
   @override
   void dispose() {
+    _debounce?.cancel();
+    onSearch = null;
     removeListener(_suggestionListener);
     super.dispose();
   }
@@ -159,19 +159,19 @@ class VChatTextMentionController extends TextEditingController {
     if (onSearch == null) return;
     if (_debounce != null && _debounce!.isActive) _debounce!.cancel();
     if (sendNow) {
-      onSearch!.call(value);
+      onSearch?.call(value);
       return;
     }
     _debounce = Timer(Duration(milliseconds: debounce), () {
       if (value == null) {
         //that means stop the search immorality
-        onSearch!.call(null);
+        onSearch?.call(null);
       } else if (value == "@") {
         //this means start search by @
-        onSearch!.call("");
+        onSearch?.call("");
       } else {
         //this mean search by this value
-        onSearch!.call(value.split(_pattern).last);
+        onSearch?.call(value.split(_pattern).last);
       }
     });
   }

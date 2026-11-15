@@ -22,8 +22,5 @@ class MentionData {
   ///user name
   final String display;
 
-  MentionData({
-    required this.id,
-    required this.display,
-  });
+  MentionData({required this.id, required this.display});
 }

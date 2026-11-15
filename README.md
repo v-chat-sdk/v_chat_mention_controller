@@ -69,3 +69,7 @@ controller.markupText
 
 - you need to use https://pub.dev/packages/flutter_parsed_text
 - to parse and view the mention text see the example in the package for how to use it !
+
+## SDK requirements
+
+Requires Flutter 3.47 or newer and Dart >=3.13.0 <4.0.0. Verified with Flutter 3.47.8 / Dart 3.13.7 on 2026-11-04. The bundled Apple examples target iOS 15 and macOS 12.
