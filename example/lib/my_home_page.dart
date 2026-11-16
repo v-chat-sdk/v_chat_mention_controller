@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_parsed_text/flutter_parsed_text.dart';
 import 'package:v_chat_mention_controller/v_chat_mention_controller.dart';
 
